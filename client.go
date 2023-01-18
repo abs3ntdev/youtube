@@ -3,13 +3,14 @@ package youtube
 import (
 	"errors"
 	"fmt"
+	"net/url"
+	"time"
+
 	"github.com/lithdew/bytesutil"
 	"github.com/lithdew/nicehttp"
 	"github.com/valyala/fasthttp"
 	"github.com/valyala/fastjson"
 	"golang.org/x/sync/errgroup"
-	"net/url"
-	"time"
 )
 
 var zeroTime time.Time
@@ -115,7 +116,7 @@ func (c *Client) SearchTimeout(query string, page uint, timeout time.Duration) (
 func (c *Client) SearchDeadline(query string, page uint, deadline time.Time) (SearchResult, error) {
 	var result SearchResult
 
-	uri := []byte("https://www.youtube.com/search_ajax?style=json")
+	uri := []byte("https://www.youtube.com/results?style=json")
 
 	uri = append(uri, "&search_query="...)
 	uri = append(uri, url.PathEscape(query)...)
